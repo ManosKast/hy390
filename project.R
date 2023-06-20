@@ -172,16 +172,6 @@ calculate_D <- function(genome_list, k, w) {
 
 
 
-
-return_500_largest_values <- function(k){
-  tmp <- sort(k, decreasing=TRUE)
-  top_500_k <- tmp[1:500]
-  return(top_500_k)
-}
-
-
-
-
 #       ERWTHMATA 1 KAI 2
 #MENEI TO D0, w0, k0.
 
@@ -275,4 +265,62 @@ d <- calculate_Euclidean_distance(standarised_k0, standarised_w0, standarised_D0
 
 
 
+#             ERWTHMA 5
 
+
+get_500_smallest_values_indexes <- function(vector){
+  sorted_indexes <- order(vector)
+  smallest_indexes <- sorted_indexes[1:500]
+  return(smallest_indexes)
+}
+
+smallest_500_indexes <- get_500_smallest_values_indexes(d)
+
+print(smallest_500_indexes)
+
+
+#             ERWTHMA 6
+
+sort_indexes <- function(vector){
+  sorted_indexes <- sort(vector)
+  return(sorted_indexes)
+}
+
+# indexes variable contains the indexes that correspond to the value's line.
+# Given those indexes, append to a vector these values and return it.
+get_parameter_values <- function(filename, indexes){
+  lines <- readLines(filename)
+  index <- 1
+  pos <- 1
+
+  values <- numeric(length(indexes))
+
+  for(line in lines) {
+    if(indexes[pos] == index) {
+      values[pos] <- line
+      pos <- pos + 1
+    }
+
+    index <- index + 1
+  }
+
+  return(values)
+}
+
+
+
+sorted_indexes <- sort_indexes(d)
+parameters <- get_parameter_values("pars_final.txt", sorted_indexes)
+
+
+
+#         ERWTHMA 7
+
+mean_parameters <- mean(parameters)
+median_parameters <- median(parameters)
+
+
+
+#         ERWTHMA 8
+
+hist(parameters, breaks = 100, main = "Histogram of parameters", xlab = "Parameter values")
