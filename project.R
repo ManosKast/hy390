@@ -97,7 +97,7 @@ extract_final_list <- function(filename) {
   }  
   
   genome_collections <- c(genome_collections, list(genome_strings))
-
+  
   return(genome_collections)
 }
 
@@ -111,7 +111,7 @@ calculate_pairwise_differences <- function(genome_list) {
   dx <- 1
   differences_list <- numeric(n * (n - 1) / 2)
   genome_list <- lapply(genome_list, function(g) strsplit(g, "")[[1]])
-
+  
   for (i in 1:(n - 1)) {
     for (j in (i + 1):n) {
       differences_list[dx] <- sum(genome_list[[i]] != genome_list[[j]])
@@ -198,11 +198,6 @@ for(i in seq_along(genome_lists)){
 
 
 
-time_end <- Sys.time()
-
-print(time_end - time_start)
-
-
 
 #     ERWTHMA 3
 
@@ -223,12 +218,12 @@ standarise_vector <- function(vector) {
 
 
 standarise_obs_vector <- function(obs_value, sim_vector){
-
+  
   average_value <- mean(sim_vector)
   std_deviation <- sd(sim_vector)
-
+  
   standarised_vector <- (obs_value - average_value)/std_deviation
-
+  
   
   return(standarised_vector)
 }
@@ -276,42 +271,21 @@ get_500_smallest_values_indexes <- function(vector){
 
 smallest_500_indexes <- get_500_smallest_values_indexes(d)
 
-print(smallest_500_indexes)
-
 
 #             ERWTHMA 6
 
-sort_indexes <- function(vector){
-  sorted_indexes <- sort(vector)
-  return(sorted_indexes)
-}
 
 # indexes variable contains the indexes that correspond to the value's line.
 # Given those indexes, append to a vector these values and return it.
 get_parameter_values <- function(filename, indexes){
   lines <- readLines(filename)
-  index <- 1
-  pos <- 1
-
-  values <- numeric(length(indexes))
-
-  for(line in lines) {
-    if(indexes[pos] == index) {
-      values[pos] <- line
-      pos <- pos + 1
-    }
-
-    index <- index + 1
-  }
-
+  
+  values <- as.numeric(lines[indexes])
   return(values)
 }
 
 
-
-sorted_indexes <- sort_indexes(d)
-parameters <- get_parameter_values("pars_final.txt", sorted_indexes)
-
+parameters <- get_parameter_values("pars_final.txt", smallest_500_indexes)
 
 
 #         ERWTHMA 7
@@ -320,7 +294,10 @@ mean_parameters <- mean(parameters)
 median_parameters <- median(parameters)
 
 
-
 #         ERWTHMA 8
 
 hist(parameters, breaks = 100, main = "Histogram of parameters", xlab = "Parameter values")
+
+
+time_end <- Sys.time()
+print(time_end - time_start)
