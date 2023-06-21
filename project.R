@@ -293,10 +293,17 @@ parameters <- get_parameter_values("pars_final.txt", smallest_500_indexes)
 mean_parameters <- mean(parameters)
 median_parameters <- median(parameters)
 
+print(mean_parameters)
+print(median_parameters)
+
 
 #         ERWTHMA 8
 
-hist(parameters, breaks = 100, main = "Histogram of parameters", xlab = "Parameter values")
+dens <- density(parameters)
+
+par(mfrow = c(1, 2))
+hist(parameters, breaks = "FD", col = "skyblue", border = "white", xlab = "Values", ylab = "Frequency", main = "Histogram of Values")
+plot(dens, main = "Density Plot of Values")
 
 
 time_end <- Sys.time()
