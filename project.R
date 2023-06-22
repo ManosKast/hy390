@@ -187,7 +187,6 @@ w <- numeric(length(genome_lists))
 D <- numeric(length(genome_lists))
 
 
-time_start <- Sys.time()
 for(i in seq_along(genome_lists)){
   k[i] <- calculate_k(genome_lists[[i]])
   
@@ -302,9 +301,6 @@ print(median_parameters)
 dens <- density(parameters)
 
 par(mfrow = c(1, 2))
-hist(parameters, breaks = "FD", col = "skyblue", border = "white", xlab = "Values", ylab = "Frequency", main = "Histogram of Values")
-plot(dens, main = "Density Plot of Values")
+hist(parameters, breaks = 10, col = "skyblue", border = "black", xlab = "Parameters", ylab = "Frequency", main = "Histogram of Parameters")
+plot(dens, main = "Density Plot of Parameters")
 
-
-time_end <- Sys.time()
-print(time_end - time_start)
