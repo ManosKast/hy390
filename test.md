@@ -28,6 +28,7 @@
 
 Κώδικας R:
 
+```R
 #==============================================================================
 
 #                 a, b, c and e related functions
@@ -335,3 +336,4 @@ dens <- density(parameters)
 par(mfrow = c(1, 2))
 hist(parameters, breaks = 10, col = "skyblue", border = "black", xlab = "Parameters", ylab = "Frequency", main = "Histogram of Parameters")
 plot(dens, main = "Density Plot of Parameters")
+```
